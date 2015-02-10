@@ -14,7 +14,7 @@ defmodule AWSAuth.QueryParameters do
       headers = Dict.put(headers, "host", uri.host)
     end
 
-    amz_date = DateFormat.format!(now, "{ISOz}") |> String.replace("-", "") |> String.replace(":", "")
+    amz_date = "#{DateFormat.format!(now, "{ISOz}") |> String.replace("-", "") |> String.replace(":", "") |> String.split(".") |> hd}Z"
     date = DateFormat.format!(now, "%Y%m%d", :strftime)
 
     scope = "#{date}/#{region}/#{service}/aws4_request"
